@@ -1,20 +1,18 @@
 // Include truYum form validation functions here
 var foodDatas = [
-    { id: 1, name: 'Sandwich', price: 99, active: 'Yes', dateOfLaunch: '15/03/2017', category: 'Main Course', freeDelivery: 'Yes' },
-    { id: 2, name: 'Burger', price: 129, active: 'Yes', dateOfLaunch: '23/12/2017', category: 'Main Course', freeDelivery: 'No' },
-    { id: 3, name: 'Pizza', price: 149, active: 'Yes', dateOfLaunch: '21/08/2017', category: 'Main Course', freeDelivery: 'No' },
-    { id: 4, name: 'French Fries', price: 57, active: 'No', dateOfLaunch: '02/07/2017', category: 'Starter', freeDelivery: 'Yes' },
-    { id: 5, name: 'Chocolate Brownies', price: 32, active: 'Yes', dateOfLaunch: '02/11/2022', category: 'Dessert', freeDelivery: 'Yes' }
-]
+    { id: 1, prodname: 'Sandwich', price: 99, active: 'Yes', dateOfLaunch: '2017-03-15', category: 'Main Course', freeDelivery: 'Yes' },
+    { id: 2, prodname: 'Burger', price: 129, active: 'Yes', dateOfLaunch: '2017-04-12', category: 'Main Course', freeDelivery: 'No' },
+    { id: 3, prodname: 'Pizza', price: 149, active: 'Yes', dateOfLaunch: '2017-02-15', category: 'Main Course', freeDelivery: 'No' },
+    { id: 4, prodname: 'French Fries', price: 57, active: 'No', dateOfLaunch: '2017-04-25', category: 'Starters', freeDelivery: 'Yes' },
+    { id: 5, prodname: 'Chocolate Brownies', price: 32, active: 'Yes', dateOfLaunch: '2017-05-07', category: 'Dessert', freeDelivery: 'Yes' }
+];
+localStorage.setItem('foodDatas', foodDatas);
 
+id = '';
+currentData = {};
 var cart = [];
 
 function admin() {
-    let adminContent = document.getElementById('admin-content');
-    let customerContent = document.getElementById('customer-content');
-
-    adminContent.style.display = 'block';
-    customerContent.style.display = 'none';
     displayDataAdmin(foodDatas);
 }
 
@@ -72,59 +70,55 @@ const displayDataAdmin = function (foodDatas) {
     tBody.innerHTML = '';
 
     for (let foodData of foodDatas) {
-
         let row = document.createElement('tr');
-        let col1 = document.createElement('td');
-        let col2 = document.createElement('td');
-        let col3 = document.createElement('td');
-        let col4 = document.createElement('td');
-        let col5 = document.createElement('td');
-        let col6 = document.createElement('td');
+        for (const key in foodData) {
+            if (foodData.hasOwnProperty(key) && key !== 'id') {
+                let col1 = document.createElement('td');
+                col1.setAttribute('style', 'text-align:left');
+                col1.textContent = foodData[key];
+                row.appendChild(col1);
+            }
+        }
         let col7 = document.createElement('td');
         let edit = document.createElement('a');
-
-        col1.textContent = foodData.name;
-        row.appendChild(col1);
-
-        col2.textContent = foodData.price;
-        row.appendChild(col2);
-
-        col3.textContent = foodData.active;
-        row.appendChild(col3);
-
-        col4.textContent = foodData.dateOfLaunch;
-        row.appendChild(col4);
-
-        col5.textContent = foodData.category;
-        row.appendChild(col5);
-
-        col6.textContent = foodData.freeDelivery;
-        row.appendChild(col6);
-
-        edit.href = "edit-menu-item.html";
-        edit.onclick = function () {
-            editData(foodData);
-        }
+        edit.href = "edit-menu-item.html?id=" + foodData.id;
         edit.textContent = "Edit";
-        // edit.classList.add('mdl-button','mdl-js-button');
-
+        edit.id = foodData.id;
         col7.appendChild(edit);
         row.appendChild(col7);
         tBody.appendChild(row);
     }
 }
 
-function editData(foodData) {
-    let adminContent = document.getElementById('admin-content');
-    let editForm = document.getElementById('admin-edit-form');
-    adminContent.style.display = 'none';
-    editForm.style.display = 'block';
+function editData() {
+    let ids = window.location.search.split('=');
+    id = ids[ids.length - 1];
+    let ind = foodDatas.findIndex(item => item.id == id);
+    if (ind === -1) {
+        return
+    }
+    const foodData = foodDatas[ind];
+    const idsList = ['price', 'dateOfLaunch', 'category', 'prodname'];
+    for (const iterator of idsList) {
+        document.getElementById(iterator).value = foodData[iterator];
+    }
+    document.getElementById('freeDelivery').checked = foodData['freeDelivery'] === 'Yes';
+    foodData['active'] === 'Yes' ? document.getElementById('active_yes').checked = true : document.getElementById('active_no').checked = true
 }
 
-if (document.getElementById('page').value == 'customer') {
-    displayDataCustomer(foodDatas);
-} else if (document.getElementById('page') == 'admin') {
-    displayDataAdmin(foodDatas);
-} else {
-    console.log("not customer / admin page");
+function onSave() {
+    currentData = {
+        id: +id,
+        prodname: document.getElementById('prodname').value,
+        price: document.getElementById('price').value,
+        active: document.getElementById('active_yes').checked ? 'Yes' : 'No',
+        dateOfLaunch: document.getElementById('dateOfLaunch').value,
+        category: document.getElementById('category').value,
+        freeDelivery: document.getElementById('freeDelivery').checked ? 'Yes' : 'No'
+    };
+    let ind = foodDatas.findIndex(item => item.id == id);
+    if (ind > -1) {
+        foodDatas[ind] = currentData;
+    }
 }
+
