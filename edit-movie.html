@@ -15,7 +15,7 @@
     <title>Edit Movie</title>
 </head>
 
-<body>
+<body onload="editData()">
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
@@ -49,19 +49,19 @@
                         <form action="edit-movie-status.html" name="editForm">
                             <div class="form-group">
                                 <label for="movie-name">Title</label>
-                                <input type="text" class="form-control" id="movieName">
+                                <input type="text" class="form-control" id="title">
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-2">
                                     <label for="gross">Gross ($)</label>
-                                    <input type="text" class="form-control" id="gross"
+                                    <input type="text" class="form-control" id="boxOffice"
                                         onkeypress='return isNumberKey(event)'>
                                 </div>
                                 <div class="form-group col-md-2" style="margin: 0px 20px;">
                                     <label for="active">Active</label><br>
                                     <div style="padding: 5px;">
-                                        <input type="radio" id="active" name="active" checked><label>Yes</label>&nbsp;&nbsp;
-                                        <input type="radio" id="active" name="active"><label>No</label>
+                                        <input type="radio" id="active_yes" name="active" checked><label>Yes</label>&nbsp;&nbsp;
+                                        <input type="radio" id="active_no" name="active"><label>No</label>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-3">
