@@ -1,31 +1,34 @@
-/* Add styles for truYum application here */
+/* Add styles for application here */
 
 .mdl-layout__header-row {
-    background: rgb(48, 84, 150);
+    background: rgb(48, 84, 150) !important;
 }
 
 .mdl-layout__drawer-button {
-    background-color: rgb(48,84,150) !important;
+    background-color: rgb(48, 84, 150) !important;
 }
 
 .mdl-mini-footer {
     background-color: rgb(141, 141, 141) !important;
 }
 
+a {
+    color: black !important;
+}
+
+header a {
+    color: white !important;
+}
+
+a:hover {
+    color: plum !important;
+}
+
 .logo {
-    height: 50px;
-    width: 50px;
-    padding: 3px;
-    margin-left: 25px;
-}
-
-table {
-    margin: 0px auto;
-}
-
-table caption {
-    text-align: left;
-    margin-top: 50px;
+    height: 35px;
+    width: 35px;
+    margin-bottom: 5px;
+    margin-left: 15px;
 }
 
 .cart-empty {
@@ -39,54 +42,56 @@ table caption {
     font-weight: bold;
 }
 
-#admin-table td:nth-child(1) {
+.favorites-empty {
+    color: gray;
+}
+
+p a {
+    color: rgb(39, 133, 240) !important;
+    font-weight: bold;
+}
+
+.m-100 {
+    margin-top: 100px;
+}
+
+/* Table */
+
+table {
+    margin: 0px auto;
+}
+
+caption {
+    text-align: left;
+    margin-top: 50px;
+}
+
+table th, tr, td {
+    padding: 12px;
+}
+
+table th:first-child, tr:first-child, td:first-child {
+    padding-left: 0px;
+}
+
+thead {
+    font-weight: bold;
+}
+
+/* Basic Styling */
+
+.text-left {
     text-align: left;
 }
 
-#admin-table td:nth-child(3) {
+.text-right {
+    text-align: right;
+}
+
+.text-center {
     text-align: center;
 }
 
-#admin-table td:nth-child(4) {
-    text-align: center;
-}
-
-#admin-table td:nth-child(5) {
-    text-align: center;
-}
-
-#admin-table td:nth-child(6) {
-    text-align: center;
-}
-
-#admin-table td:nth-child(7) {
-    text-align: center;
-}
-
-#customer-table td:nth-child(1) {
-    text-align: left;
-}
-
-#customer-table td:nth-child(2) {
-    text-align: center;
-}
-
-#customer-table td:nth-child(4) {
-    text-align: left;
-}
-
-#customer-table td:nth-child(5) {
-    text-align: center;
-}
-
-#cart-table td:nth-child(1) {
-    text-align: left;
-}
-
-#cart-table td:nth-child(2) {
-    text-align: left;
-}
-
-#cart-table tr:last-child {
+.font-bold {
     font-weight: bold;
 }
